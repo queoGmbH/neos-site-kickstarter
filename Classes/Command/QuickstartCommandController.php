@@ -1,24 +1,12 @@
 <?php
 namespace Queo\SiteKickstarter\Command;
 
-/*
- * This file is part of the Neos.SiteKickstarter package.
- *
- * (c) Contributors of the Neos Project - www.neos.io
- *
- * This package is Open Source Software. For the full copyright and license
- * information, please view the LICENSE file which was distributed with this
- * source code.
- */
-
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Cli\CommandController;
 use Neos\Flow\Package\PackageManager;
 use Neos\Flow\Reflection\ReflectionService;
 use Neos\SiteKickstarter\Service\GeneratorService;
 use Queo\SiteKickstarter\Service\AbstractSitePackageGeneratorService;
-use Queo\SiteKickstarter\Service\AfxTemplateGeneratorService;
-use Queo\SiteKickstarter\Service\FluidTemplateGeneratorService;
 
 /**
  * Command controller for the Kickstart generator

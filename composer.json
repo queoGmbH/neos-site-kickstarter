@@ -1,0 +1,17 @@
+{
+    "name": "queo/site-kickstarter",
+    "type": "neos-package",
+    "description": "A simple generator for Neos assets, like sites and plugins.",
+    "license": ["GPL-3.0-or-later"],
+    "require": {
+        "neos/flow": "*",
+        "neos/utility-files": "*",
+        "neos/fluid-adaptor": "*",
+        "neos/kickstarter": "~6.1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Queo\\SiteKickstarter\\": "Classes"
+        }
+    }
+}

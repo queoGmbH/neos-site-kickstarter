@@ -7,9 +7,12 @@ use Neos\Flow\Package\PackageManager;
 use Neos\Utility\Files;
 use Neos\ContentRepository\Domain\Repository\ContentDimensionRepository;
 use Neos\ContentRepository\Utility;
+use Queo\SiteKickstarter\Annotation as QSK;
 
 /**
  * Service to generate site packages
+ *
+ * @QSK\SitePackageGenerator("Fluid Basic")
  */
 class FluidTemplateGeneratorService extends AbstractSitePackageGeneratorService
 {

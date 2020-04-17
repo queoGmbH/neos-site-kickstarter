@@ -5,7 +5,7 @@ use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Cli\CommandController;
 use Neos\Flow\Package\PackageManager;
 use Neos\Flow\Reflection\ReflectionService;
-use Neos\SiteKickstarter\Service\GeneratorService;
+use Queo\SiteKickstarter\Annotation\SitePackageGenerator;
 use Queo\SiteKickstarter\Service\AbstractSitePackageGeneratorService;
 
 /**
@@ -45,14 +45,32 @@ class QuickstartCommandController extends CommandController
             $this->outputLine('Package "%s" already exists.', [$packageKey]);
             $this->quit(1);
         }
-
         $generatorClasses = $this->reflectionService->getAllSubClassNamesForClass(AbstractSitePackageGeneratorService::class);
 
-        $renderEngine = $this->output->select('What generator do you want to use?',
-            $generatorClasses
+        $selection = [];
+        $nameToClassMap = [];
+        foreach ($generatorClasses as $generatorClass) {
+            $classAnnotation = $this->reflectionService->getClassAnnotation($generatorClass, SitePackageGenerator::class);
+            if ($classAnnotation instanceof SitePackageGenerator) {
+                /**
+                 * @var SitePackageGenerator $classAnnotation
+                 */
+                $name = $classAnnotation->generatorName;
+            } else {
+                $name = $generatorClass;
+            }
+
+            $selection[] = $name;
+            $nameToClassMap[$name] = $generatorClass;
+        }
+
+        $generatorName = $this->output->select('What generator do you want to use?',
+            $selection
         );
 
-        $generatorService = $this->objectManager->get($renderEngine);
+        $generatorClass = $nameToClassMap[$generatorName];
+
+        $generatorService = $this->objectManager->get($generatorClass);
 
         $generatedFiles = $generatorService->generateSitePackage($packageKey, $siteName);
         $this->outputLine(implode(PHP_EOL, $generatedFiles));

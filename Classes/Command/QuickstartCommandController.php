@@ -1,4 +1,5 @@
 <?php
+
 namespace Queo\SiteKickstarter\Command;
 
 use Neos\Flow\Annotations as Flow;
@@ -6,7 +7,7 @@ use Neos\Flow\Cli\CommandController;
 use Neos\Flow\Package\PackageManager;
 use Neos\Flow\Reflection\ReflectionService;
 use Queo\SiteKickstarter\Annotation\SitePackageGenerator;
-use Queo\SiteKickstarter\Service\AbstractSitePackageGeneratorService;
+use Queo\SiteKickstarter\Generator\AbstractSitePackageGenerator;
 
 /**
  * Command controller for the Kickstart generator
@@ -45,7 +46,8 @@ class QuickstartCommandController extends CommandController
             $this->outputLine('Package "%s" already exists.', [$packageKey]);
             $this->quit(1);
         }
-        $generatorClasses = $this->reflectionService->getAllSubClassNamesForClass(AbstractSitePackageGeneratorService::class);
+
+        $generatorClasses = $this->reflectionService->getAllSubClassNamesForClass(AbstractSitePackageGenerator::class);
 
         $selection = [];
         $nameToClassMap = [];

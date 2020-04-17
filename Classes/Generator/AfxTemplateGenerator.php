@@ -1,6 +1,6 @@
 <?php
 
-namespace Queo\SiteKickstarter\Service;
+namespace Queo\SiteKickstarter\Generator;
 
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Package\PackageManager;
@@ -8,13 +8,14 @@ use Neos\Utility\Files;
 use Neos\ContentRepository\Domain\Repository\ContentDimensionRepository;
 use Neos\ContentRepository\Utility;
 use Queo\SiteKickstarter\Annotation as QSK;
+use Queo\SiteKickstarter\Service\FusionRecursiveDirectoryRenderer;
 
 /**
  * Service to generate site packages
  *
  * @QSK\SitePackageGenerator("Afx Basic")
  */
-class AfxTemplateGeneratorService extends AbstractSitePackageGeneratorService
+class AfxTemplateGenerator extends AbstractSitePackageGenerator
 {
     /**
      * @Flow\Inject
@@ -49,7 +50,6 @@ class AfxTemplateGeneratorService extends AbstractSitePackageGeneratorService
         ]);
 
         $this->generateSitesXml($packageKey, $siteName);
-        $this->generateSitesRootFusion($packageKey, $siteName);
         $this->generateSitesDocumentFusion($packageKey, $siteName);
         $this->generateNodeTypesConfiguration($packageKey);
         $this->generateAdditionalFolders($packageKey);
@@ -120,21 +120,15 @@ class AfxTemplateGeneratorService extends AbstractSitePackageGeneratorService
         $packageKeyDomainPart = substr(strrchr($packageKey, '.'), 1) ?: $packageKey;
         $contextVariables['siteNodeName'] = $packageKeyDomainPart;
 
-        $paths = [
-            'Fusion/Document/Page.fusion',
-            'Fusion/Document/AbstractPage.fusion'
-        ];
+        $fusionRecursiveDirectoryRenderer = new FusionRecursiveDirectoryRenderer();
 
-        foreach ($paths as $path) {
-            $templatePathAndFilename = $this->getResourcePathForFile($path);
+        $packageDirectory = $this->packageManager->getPackage('Queo.SiteKickstarter')->getResourcesPath();
 
-
-            $fileContent = $this->renderSimpleTemplate($templatePathAndFilename, $contextVariables);
-
-            $sitesPageFusionPathAndFilename = $this->packageManager->getPackage($packageKey)->getResourcesPath() . 'Private/' . $path;
-            $this->generateFile($sitesPageFusionPathAndFilename, $fileContent);
-        }
-
+        $fusionRecursiveDirectoryRenderer->renderDirectory(
+            $packageDirectory . 'Private/AfxGenerator/Fusion',
+            $this->packageManager->getPackage($packageKey)->getResourcesPath() . 'Private/Fusion',
+            $contextVariables
+        );
     }
 
     /**

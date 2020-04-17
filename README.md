@@ -15,7 +15,7 @@ then you get asked which generator service you want to use. Currently two differ
 
 ## Custom template generator
 
-You can develop your own template generator by just extending the `AbstractSitePackageGeneratorService`. The command notice every present generator service which is a subclass of `AbstractSitePackageGeneratorService` and adds it to the selection.
+You can develop your own template generator by just extending the `AbstractSitePackageGenerator`. The command notice every present generator service which is a subclass of `AbstractSitePackageGenerator` and adds it to the selection.
 
 ## Tests
 

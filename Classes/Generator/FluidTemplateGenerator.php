@@ -1,6 +1,6 @@
 <?php
 
-namespace Queo\SiteKickstarter\Service;
+namespace Queo\SiteKickstarter\Generator;
 
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Package\PackageManager;
@@ -14,7 +14,7 @@ use Queo\SiteKickstarter\Annotation as QSK;
  *
  * @QSK\SitePackageGenerator("Fluid Basic")
  */
-class FluidTemplateGeneratorService extends AbstractSitePackageGeneratorService
+class FluidTemplateGenerator extends AbstractSitePackageGenerator
 {
     /**
      * @Flow\Inject

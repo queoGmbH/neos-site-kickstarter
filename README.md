@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This package is highly based on the native neos site kickstarter package in neos core. The goal of this package is to give the user the posibility to use new afx style or the old school fluid way of rendering pages and components in NEOS.
+This package is largely based on the native neos site kickstarter package in neos core. The goal of this package is to give the user the posibility to use new afx style or the old school fluid way of rendering pages and components in NEOS.
 
 ## Usage
 

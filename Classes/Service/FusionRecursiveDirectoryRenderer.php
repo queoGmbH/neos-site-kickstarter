@@ -5,6 +5,8 @@ namespace Queo\SiteKickstarter\Service;
 class FusionRecursiveDirectoryRenderer
 {
     /**
+     * Renders whole directory recursivly instead of one file
+     *
      * @param $srcDirectory
      * @param $targetDirectory
      * @param $variables
@@ -20,8 +22,6 @@ class FusionRecursiveDirectoryRenderer
 
             if (!is_dir($path)) {
                 $compiledFile = $this->renderSimpleTemplate($path, $variables);
-
-
                 if (!is_dir(dirname($targetPath))) {
                     \Neos\Utility\Files::createDirectoryRecursively(dirname($targetPath));
                 }

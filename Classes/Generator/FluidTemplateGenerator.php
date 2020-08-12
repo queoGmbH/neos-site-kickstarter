@@ -215,6 +215,12 @@ class FluidTemplateGenerator extends AbstractSitePackageGenerator
         return $content;
     }
 
+    /**
+     * returns resource path for the generator
+     *
+     * @param $pathToFile
+     * @return string
+     */
     protected function getResourcePathForFile($pathToFile)
     {
         return 'resource://Queo.SiteKickstarter/Private/FluidGenerator/' . $pathToFile;
